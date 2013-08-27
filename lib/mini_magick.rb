@@ -248,7 +248,9 @@ module MiniMagick
           result
         end
       else
-        run_command('identify', '-format', value, path).split("\n")[0]
+        args = ['-format', value, path]
+        args.unshift '-units', units if units
+        run_command('identify', args).split("\n")[0]
       end
     end
 
@@ -391,7 +393,6 @@ module MiniMagick
       if command == 'identify'
         args.unshift '-ping'
         args.unshift '-quiet' unless MiniMagick.processor.to_s == 'gm'
-        args.unshift '-units', units if units
       end
 
       run(CommandBuilder.new(command, *args))
