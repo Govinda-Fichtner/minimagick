@@ -250,7 +250,7 @@ module MiniMagick
       else
         args = ['-format', value, path]
         args.unshift '-units', units if units
-        run_command('identify', args).split("\n")[0]
+        run_command('identify', *args).split("\n")[0]
       end
     end
 
