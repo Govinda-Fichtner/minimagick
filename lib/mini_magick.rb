@@ -46,6 +46,9 @@ module MiniMagick
   class Image
     # @return [String] The location of the current working file
     attr_accessor :path
+    # @return [String] The units setting which is used for the identify command in the [] method
+    # e.g. identify -units pixelsperinch some_file.png
+    attr_accessor :units
 
     # Class Methods
     # -------------
@@ -388,6 +391,7 @@ module MiniMagick
       if command == 'identify'
         args.unshift '-ping'
         args.unshift '-quiet' unless MiniMagick.processor.to_s == 'gm'
+        args.unshift '-units', units if units
       end
 
       run(CommandBuilder.new(command, *args))
